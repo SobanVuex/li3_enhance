@@ -52,10 +52,19 @@ class UtilTest extends \lithium\test\Unit
     public function testFileInfo()
     {
         $this->assertTrue(Util::fileInfo(__FILE__));
-        $this->assertTrue(Util::fileInfo(__DIR__, array('dir')));
+        $this->assertTrue(Util::fileInfo(__FILE__, array('read')));
+        $this->assertTrue(Util::fileInfo(__FILE__, array('write')));
         $this->assertTrue(Util::fileInfo(__FILE__, array('read', 'write')));
-
+        $this->assertFalse(Util::fileInfo(__FILE__, array('exec')));
+        $this->assertFalse(Util::fileInfo(__FILE__, array('link')));
         $this->assertFalse(Util::fileInfo(__FILE__, array('exec', 'link')));
+
+        $this->assertTrue(Util::fileInfo(__DIR__, array('dir')));
+        $this->assertTrue(Util::fileInfo(__DIR__, array('dir', 'read')));
+        $this->assertTrue(Util::fileInfo(__DIR__, array('dir', 'write')));
+        $this->assertTrue(Util::fileInfo(__DIR__, array('dir', 'exec')));
+        $this->assertTrue(Util::fileInfo(__DIR__, array('dir', 'read', 'write', 'exec')));
+        $this->assertFalse(Util::fileInfo(__DIR__, array('dir', 'link')));
     }
 
     /**

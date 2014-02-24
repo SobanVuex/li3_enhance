@@ -68,18 +68,16 @@ class Util
             'write' => 'isWritable'
         );
 
+        $info = true;
         $file = new \SplFileInfo($file);
         $options = array_intersect_key($defaults, array_flip($options));
 
-        if (isset($options['dir'])) {
-            return $file->isDir();
+        if (!isset($options['dir'])) {
+            $options = array('file' => 'isFile') + $options;
         }
 
-        $info = $file->isFile();
         foreach ($options as $check) {
-            if ($info) {
-                $info = $info && $file->{$check}();
-            }
+            $info = $info && $file->{$check}();
         }
 
         return $info;
