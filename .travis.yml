@@ -9,4 +9,4 @@ before_script:
     - composer install --dev
 
 script:
-  - vendor/unionofrad/libraries/lithium/console/li3 test  --filters=Profiler tests
+  - vendor/unionofrad/lithium/lithium/console/li3 test  --filters=Profiler tests
