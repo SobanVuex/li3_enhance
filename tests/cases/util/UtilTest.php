@@ -12,6 +12,11 @@ namespace li3_enhance\tests\cases\util;
 
 use li3_enhance\util\Util;
 
+/**
+ * Tests for \li3_enhance\util\Util
+ *
+ * @package li3_enhance
+ */
 class UtilTest extends \lithium\test\Unit
 {
 

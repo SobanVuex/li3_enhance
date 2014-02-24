@@ -15,6 +15,11 @@ use lithium\tests\mocks\analysis\MockLoggerAdapter;
 use lithium\tests\mocks\action\MockControllerRequest;
 use li3_enhance\controllers\Controller;
 
+/**
+ * Tests for \li3_enhance\controllers\Controller
+ *
+ * @package li3_enhance
+ */
 class ControllerTest extends \lithium\test\Unit
 {
 

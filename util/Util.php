@@ -11,7 +11,7 @@
 namespace li3_enhance\util;
 
 /**
- * Description of Util
+ * Utility providing additional methods
  *
  * @package li3_enhance
  */
