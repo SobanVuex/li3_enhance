@@ -21,40 +21,37 @@ class Controller extends \lithium\action\Controller
 {
 
     /**
+     * @var array
+     */
+    protected $loggerPriorities = array(
+        LOG_EMERG => 'emergency',
+        LOG_ALERT => 'alert',
+        LOG_CRIT => 'critical',
+        LOG_ERR => 'error',
+        LOG_WARNING => 'warning',
+        LOG_NOTICE => 'notice',
+        LOG_INFO => 'info',
+        LOG_DEBUG => 'debug',
+    );
+
+    /**
      * @param  array|string $message
      * @param  integer      $flag http://php.net/manual/en/function.syslog.php
      * @return boolean
      */
     protected function log($message, $flag = LOG_NOTICE)
     {
+        if (isset($this->loggerPriorities[$flag])) {
+            $flag = LOG_NOTICE;
+        }
+
         if (!is_array($message)) {
-            $message = array(
-                'message' => $message
-            );
+            $message = array('message' => $message);
         }
 
-        $message = json_encode($message + array(
-            'remote_addr' => $this->request->env('REMOTE_ADDR')
-        ));
+        $message += array('remote_addr' => $this->request->env('REMOTE_ADDR'));
 
-        switch ($flag) {
-            case LOG_EMERG:
-                return (boolean) Logger::write('emergency', $message);
-            case LOG_ALERT:
-                return (boolean) Logger::write('alert', $message);
-            case LOG_CRIT:
-                return (boolean) Logger::write('critical', $message);
-            case LOG_ERR:
-                return (boolean) Logger::write('error', $message);
-            case LOG_WARNING:
-                return (boolean) Logger::write('warning', $message);
-            case LOG_NOTICE:
-                return (boolean) Logger::write('notice', $message);
-            case LOG_DEBUG:
-                return (boolean) Logger::write('debug', $message);
-            default:
-                return (boolean) Logger::write('notice', $message);
-        }
+        return (boolean) Logger::write($this->loggerPriorities[$flag], json_encode($message));
     }
 
 }
