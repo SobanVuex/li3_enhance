@@ -39,7 +39,7 @@ class Model extends \lithium\data\Model
      * @param  integer      $flag http://php.net/manual/en/function.syslog.php
      * @return boolean
      */
-    protected function log($message, $flag = LOG_WARNING)
+    public function log($message, $flag = LOG_WARNING)
     {
         if (isset($this->loggerPriorities[$flag])) {
             $flag = LOG_WARNING;
