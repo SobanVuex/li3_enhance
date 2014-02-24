@@ -38,7 +38,7 @@ class Util
     public static function inArrayRecursive($needle, array $haystack = array())
     {
         if (!$haystack) {
-            return;
+            return false;
         }
 
         $iterator = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($haystack));
@@ -119,8 +119,6 @@ class Util
             $message = 'The `method` argument does not reference a correct hasing algorithm.';
             throw new \UnexpectedValueException($message);
         }
-
-        return false;
     }
 
 }
