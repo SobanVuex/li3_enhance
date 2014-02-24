@@ -61,36 +61,25 @@ class Util
     public static function fileInfo($file, array $options = array())
     {
         $defaults = array(
-            'dir' => false,
-            'exec' => false,
-            'link' => false,
-            'read' => false,
-            'write' => false
+            'dir' => 'isDir',
+            'exec' => 'isExecutable',
+            'link' => 'isLink',
+            'read' => 'isReadable',
+            'write' => 'isWritable'
         );
 
-        $options = array_fill_keys($options, true) + $defaults;
         $file = new \SplFileInfo($file);
+        $options = array_intersect_key($defaults, array_flip($options));
 
-        if ($options['dir']) {
-            $info = $file->isDir();
-        } else {
-            $info = $file->isFile();
+        if (isset($options['dir'])) {
+            return $file->isDir();
         }
 
-        if ($info && $options['exec']) {
-            $info = $info && $file->isExecutable();
-        }
-
-        if ($info && $options['link']) {
-            $info = $info && $file->isLink();
-        }
-
-        if ($info && $options['read']) {
-            $info = $info && $file->isReadable();
-        }
-
-        if ($info && $options['write']) {
-            $info = $info && $file->isWritable();
+        $info = $file->isFile();
+        foreach ($options as $check) {
+            if ($info) {
+                $info = $info && $file->{$check}();
+            }
         }
 
         return $info;
@@ -122,3 +111,5 @@ class Util
     }
 
 }
+
+$x = Util::fileInfo(__FILE__, array('dir'));
