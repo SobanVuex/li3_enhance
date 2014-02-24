@@ -18,24 +18,33 @@ namespace li3_enhance\util;
 class Util
 {
 
+    /**
+     * @var integer
+     */
     const HASH_SHA1 = 1;
+
+    /**
+     * @var integer
+     */
     const HASH_MD5 = 2;
 
     /**
      * Check for `$needle` in array recursively
      *
-     * @param  type    $needle
+     * @param  mixed   $needle
      * @param  array   $haystack
      * @return boolean
      */
     public static function inArrayRecursive($needle, array $haystack = array())
     {
-        if ($haystack) {
-            $iterator = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($haystack));
-            foreach ($iterator as $element) {
-                if ($element === $needle) {
-                    return true;
-                }
+        if (!$haystack) {
+            return;
+        }
+
+        $iterator = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($haystack));
+        foreach ($iterator as $element) {
+            if ($element === $needle) {
+                return true;
             }
         }
 
@@ -98,15 +107,17 @@ class Util
      */
     public static function fileSum($file, $method = self::HASH_SHA1, $raw = false)
     {
-        if (self::fileInfo($file, array('read'))) {
-            if ($method === self::HASH_SHA1) {
-                return sha1_file($file, $raw);
-            } elseif ($method === self::HASH_MD5) {
-                return md5_file($file, $raw);
-            } else {
-                $message = 'The `method` argument does not reference a correct hasing algorithm.';
-                throw new \UnexpectedValueException($message);
-            }
+        if (!self::fileInfo($file, array('read'))) {
+            return false;
+        }
+
+        if ($method === self::HASH_SHA1) {
+            return sha1_file($file, $raw);
+        } elseif ($method === self::HASH_MD5) {
+            return md5_file($file, $raw);
+        } else {
+            $message = 'The `method` argument does not reference a correct hasing algorithm.';
+            throw new \UnexpectedValueException($message);
         }
 
         return false;
