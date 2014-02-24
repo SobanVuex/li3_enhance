@@ -39,21 +39,21 @@ class Controller extends \lithium\action\Controller
 
         switch ($flag) {
             case LOG_EMERG:
-                return (boolean) Logger::emergency($message);
+                return (boolean) Logger::write('emergency', $message);
             case LOG_ALERT:
-                return (boolean) Logger::alert($message);
+                return (boolean) Logger::write('alert', $message);
             case LOG_CRIT:
-                return (boolean) Logger::critical($message);
+                return (boolean) Logger::write('critical', $message);
             case LOG_ERR:
-                return (boolean) Logger::error($message);
+                return (boolean) Logger::write('error', $message);
             case LOG_WARNING:
-                return (boolean) Logger::warning($message);
+                return (boolean) Logger::write('warning', $message);
             case LOG_NOTICE:
-                return (boolean) Logger::notice($message);
+                return (boolean) Logger::write('notice', $message);
             case LOG_DEBUG:
-                return (boolean) Logger::debug($message);
+                return (boolean) Logger::write('debug', $message);
             default:
-                return (boolean) Logger::notice($message);
+                return (boolean) Logger::write('notice', $message);
         }
     }
 
