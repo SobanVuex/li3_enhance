@@ -1,0 +1,21 @@
+{
+    "name": "sobanvuex/li3_enhance",
+    "description": "Collection of extensions and utilities for li3",
+    "keywords": ["li3", "lithium"],
+    "type": "lithium-library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alex Soban",
+            "email": "me@soban.co",
+            "homepage": "https://soban.co"
+        }
+    ],
+    "require": {
+        "php": ">=5.3",
+        "composer/installers": "*"
+    },
+    "require-dev": {
+        "unionofrad/lithium": "dev-master"
+    }
+}
