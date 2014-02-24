@@ -94,7 +94,7 @@ class Util
      * @param  integer      $method
      * @param  boolean      $raw
      * @return string|false
-     * @throws \InvalidArgumentException
+     * @throws \UnexpectedValueException
      */
     public static function fileSum($file, $method = self::HASH_SHA1, $raw = false)
     {
@@ -105,7 +105,7 @@ class Util
                 return md5_file($file, $raw);
             } else {
                 $message = 'The `method` argument does not reference a correct hasing algorithm.';
-                throw new \InvalidArgumentException($message);
+                throw new \UnexpectedValueException($message);
             }
         }
 
