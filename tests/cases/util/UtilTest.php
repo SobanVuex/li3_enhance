@@ -44,6 +44,7 @@ class UtilTest extends \lithium\test\Unit
         $this->assertTrue(Util::inArrayRecursive('orange', $this->recursiveArray));
 
         $this->assertFalse(Util::inArrayRecursive('pizza', $this->recursiveArray));
+        $this->assertFalse(Util::inArrayRecursive('pizza'));
     }
 
     /**
