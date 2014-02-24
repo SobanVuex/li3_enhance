@@ -6,4 +6,4 @@ php:
   - 5.5
 
 script:
-  - vendor/unionofrad/libraries/lithium/console/li3 test tests
+  - vendor/unionofrad/libraries/lithium/console/li3 test  --filters=Profiler tests
