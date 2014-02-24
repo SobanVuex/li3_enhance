@@ -111,5 +111,3 @@ class Util
     }
 
 }
-
-$x = Util::fileInfo(__FILE__, array('dir'));
