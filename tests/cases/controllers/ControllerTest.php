@@ -18,6 +18,9 @@ use li3_enhance\controllers\Controller;
 class ControllerTest extends \lithium\test\Unit
 {
 
+    /**
+     * Setup Logger configuration
+     */
     public function setUp()
     {
         Logger::config(array(
@@ -27,6 +30,9 @@ class ControllerTest extends \lithium\test\Unit
         ));
     }
 
+    /**
+     * Test for log()
+     */
     public function testControllerLog()
     {
         $request = new MockControllerRequest();

@@ -15,6 +15,9 @@ use li3_enhance\util\Util;
 class UtilTest extends \lithium\test\Unit
 {
 
+    /**
+     * @var array
+     */
     protected $recursiveArray = array(
         'apple',
         'orange',
@@ -27,6 +30,9 @@ class UtilTest extends \lithium\test\Unit
         )
     );
 
+    /**
+     * Test for inArrayRecursive()
+     */
     public function testInArrayRecursive()
     {
         $this->assertTrue(Util::inArrayRecursive('pulp', $this->recursiveArray));
@@ -35,6 +41,9 @@ class UtilTest extends \lithium\test\Unit
         $this->assertFalse(Util::inArrayRecursive('pizza', $this->recursiveArray));
     }
 
+    /**
+     * Test for fileInfo()
+     */
     public function testFileInfo()
     {
         $this->assertTrue(Util::fileInfo(__FILE__));
@@ -46,6 +55,9 @@ class UtilTest extends \lithium\test\Unit
         $this->assertFalse(Util::fileInfo(__FILE__, array('link')));
     }
 
+    /**
+     * Test for fileSum()
+     */
     public function testFileSum()
     {
         $this->assertEqual(sha1_file(__FILE__), Util::fileSum(__FILE__));
