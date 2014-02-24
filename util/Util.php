@@ -45,7 +45,7 @@ class Util
     /**
      * Check if a `$path` has one or more properties
      *
-     * @param  type    $file
+     * @param  string  $file
      * @param  array   $options
      * @return boolean
      */
