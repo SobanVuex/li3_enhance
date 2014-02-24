@@ -1,9 +1,6 @@
 li3_enhance
 ===========
 
-li3_enhance
-===========
-
 [![Build Status](https://travis-ci.org/SobanVuex/li3_enhance.png?branch=master)](https://travis-ci.org/SobanVuex/li3_enhance)
 [![Latest Stable Version](https://poser.pugx.org/sobanvuex/li3_enhance/version.png)](https://packagist.org/packages/sobanvuex/li3_enhance) 
 [![Composer Downloads](https://poser.pugx.org/sobanvuex/li3_enhance/d/total.png)](https://packagist.org/packages/sobanvuex/li3_enhance) 
