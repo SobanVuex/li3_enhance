@@ -51,7 +51,6 @@ class Model extends \lithium\data\Model
 
         $message += array('model' => get_called_class());
 
-        var_dump($message);
         return (boolean) Logger::write($this->loggerPriorities[$flag], json_encode($message));
     }
 
