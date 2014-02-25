@@ -1,6 +1,6 @@
 {
     "name": "sobanvuex/li3_enhance",
-    "description": "Collection of extensions and utilities for li3",
+    "description": "Collection of extensions and utilities for Li3",
     "keywords": ["li3", "lithium"],
     "type": "lithium-library",
     "license": "MIT",
