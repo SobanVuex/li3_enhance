@@ -11,45 +11,21 @@
 namespace li3_enhance\util;
 
 /**
- * Utility providing additional methods
- *
  * @package li3_enhance
  */
-class Util
+class File
 {
 
     /**
      * @var integer
      */
-    const HASH_SHA1 = 1;
+    const SUM_SHA1 = 1;
 
     /**
      * @var integer
      */
-    const HASH_MD5 = 2;
+    const SUM_MD5 = 2;
 
-    /**
-     * Check for `$needle` in array recursively
-     *
-     * @param  mixed   $needle
-     * @param  array   $haystack
-     * @return boolean
-     */
-    public static function inArrayRecursive($needle, array $haystack = array())
-    {
-        if (!$haystack) {
-            return false;
-        }
-
-        $iterator = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($haystack));
-        foreach ($iterator as $element) {
-            if ($element === $needle) {
-                return true;
-            }
-        }
-
-        return false;
-    }
 
     /**
      * Check if a `$path` has one or more properties
@@ -58,7 +34,7 @@ class Util
      * @param  array   $options
      * @return boolean
      */
-    public static function fileInfo($file, array $options = array())
+    public static function info($file, array $options = array())
     {
         $defaults = array(
             'dir' => 'isDir',
@@ -68,7 +44,6 @@ class Util
             'write' => 'isWritable'
         );
 
-        $info = true;
         $file = new \SplFileInfo($file);
         $options = array_intersect_key($defaults, array_flip($options));
 
@@ -77,7 +52,7 @@ class Util
         }
 
         foreach ($options as $check) {
-            $info = $info && $file->{$check}();
+            $info = (isset($info) ? $info : true) && $file->{$check}();
         }
 
         return $info;
@@ -92,15 +67,15 @@ class Util
      * @return string|false
      * @throws \UnexpectedValueException
      */
-    public static function fileSum($file, $method = self::HASH_SHA1, $raw = false)
+    public static function sum($file, $method = self::SUM_SHA1, $raw = false)
     {
-        if (!self::fileInfo($file, array('read'))) {
+        if (!self::info($file, array('read'))) {
             return false;
         }
 
-        if ($method === self::HASH_SHA1) {
+        if ($method === self::SUM_SHA1) {
             return sha1_file($file, $raw);
-        } elseif ($method === self::HASH_MD5) {
+        } elseif ($method === self::SUM_MD5) {
             return md5_file($file, $raw);
         } else {
             $message = 'The `method` argument does not reference a correct hasing algorithm.';
