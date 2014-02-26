@@ -44,6 +44,7 @@ class File
             'write' => 'isWritable'
         );
 
+        $info = true;
         $file = new \SplFileInfo($file);
         $options = array_intersect_key($defaults, array_flip($options));
 
@@ -52,7 +53,7 @@ class File
         }
 
         foreach ($options as $check) {
-            $info = (isset($info) ? $info : true) && $file->{$check}();
+            $info = $info && $file->{$check}();
         }
 
         return $info;
