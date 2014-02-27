@@ -18,38 +18,67 @@ use li3_enhance\util\File;
 class FileTest extends \lithium\test\Unit
 {
 
-    /**
-     * Test for info()
-     */
-    public function testInfo()
+    public function testInfoFile()
     {
         $this->assertTrue(File::info(__FILE__));
+    }
+
+    public function testInfoFileParam()
+    {
         $this->assertTrue(File::info(__FILE__, array('read')));
         $this->assertTrue(File::info(__FILE__, array('write')));
-        $this->assertTrue(File::info(__FILE__, array('read', 'write')));
         $this->assertFalse(File::info(__FILE__, array('exec')));
         $this->assertFalse(File::info(__FILE__, array('link')));
-        $this->assertFalse(File::info(__FILE__, array('exec', 'link')));
+    }
 
+    public function testInfoFileParams()
+    {
+        $this->assertTrue(File::info(__FILE__, array('read', 'write')));
+        $this->assertFalse(File::info(__FILE__, array('exec', 'link')));
+    }
+
+    public function testInfoDir()
+    {
         $this->assertTrue(File::info(__DIR__, array('dir')));
+    }
+
+    public function testInfoDirParam()
+    {
         $this->assertTrue(File::info(__DIR__, array('dir', 'read')));
         $this->assertTrue(File::info(__DIR__, array('dir', 'write')));
         $this->assertTrue(File::info(__DIR__, array('dir', 'exec')));
-        $this->assertTrue(File::info(__DIR__, array('dir', 'read', 'write', 'exec')));
         $this->assertFalse(File::info(__DIR__, array('dir', 'link')));
     }
 
-    /**
-     * Test for sum()
-     */
-    public function testSum()
+    public function testInfoDirParams()
+    {
+        $this->assertTrue(File::info(__DIR__, array('dir', 'read', 'write', 'exec')));
+    }
+
+    public function testSumSha1()
     {
         $this->assertEqual(sha1_file(__FILE__), File::sum(__FILE__));
+    }
+
+    public function testSumSha1Raw()
+    {
         $this->assertEqual(sha1_file(__FILE__, true), File::sum(__FILE__, File::SUM_SHA1, true));
+    }
+
+    public function testSumMd5()
+    {
 
         $this->assertEqual(md5_file(__FILE__), File::sum(__FILE__, File::SUM_MD5));
-        $this->assertEqual(md5_file(__FILE__, true), File::sum(__FILE__, File::SUM_MD5, true));
+    }
 
+    public function testSumMd5Raw()
+    {
+
+        $this->assertEqual(md5_file(__FILE__, true), File::sum(__FILE__, File::SUM_MD5, true));
+    }
+
+    public function testSumSha1Md5()
+    {
         $this->assertNotEqual(File::sum(__FILE__, File::SUM_SHA1), File::sum(__FILE__, File::SUM_MD5));
     }
 

@@ -18,12 +18,9 @@ use li3_enhance\util\Set;
 class SetTest extends \lithium\test\Unit
 {
 
-    /**
-     * Test for inArrayRecursive()
-     */
-    public function testInArrayRecursive()
+    public function setUp()
     {
-        $data = array(
+        $this->recursiveArray = array(
             'apple',
             'orange',
             'banana',
@@ -34,31 +31,46 @@ class SetTest extends \lithium\test\Unit
                 )
             )
         );
-
-        $this->assertTrue(Set::inArrayRecursive('pulp', $data));
-        $this->assertTrue(Set::inArrayRecursive('orange', $data));
-
-        $this->assertFalse(Set::inArrayRecursive('pizza', $data));
-        $this->assertFalse(Set::inArrayRecursive('pizza'));
-    }
-
-    /**
-     * Test for extract()
-     */
-    public function testExtract()
-    {
-        $data = array(
+        $this->dataArray = array(
             array('id' => 0, 'item' => array('name' => 'Apple')),
             array('id' => 3, 'item' => array('name' => 'Orange')),
             array('id' => 1, 'item' => array('name' => 'Banana')),
             array('id' => 2, 'item' => array('name' => 'Strawberry')),
             array('id' => 6, 'item' => array('name' => 'Lemon'))
         );
+    }
 
-        $this->assertEqual($data, Set::extract($data, '/'));
-        $this->assertEqual(array(0, 3, 1, 2, 6), Set::extract($data, '/id'));
+    public function testInArrayRecursive()
+    {
+        $this->assertTrue(Set::inArrayRecursive('pulp', $this->recursiveArray));
+        $this->assertTrue(Set::inArrayRecursive('orange', $this->recursiveArray));
+    }
+
+    public function testInArrayRecursiveNotFound()
+    {
+        $this->assertFalse(Set::inArrayRecursive('pizza', $this->recursiveArray));
+        $this->assertFalse(Set::inArrayRecursive('plane', $this->recursiveArray));
+    }
+
+    public function testInArrayRecursiveEmpty()
+    {
+        $this->assertFalse(Set::inArrayRecursive('pizza'));
+    }
+
+    public function testExtractRoot()
+    {
+        $this->assertEqual($this->dataArray, Set::extract($this->dataArray, '/'));
+    }
+
+    public function testExtractItem()
+    {
+        $this->assertEqual(array(0, 3, 1, 2, 6), Set::extract($this->dataArray, '/id'));
+    }
+
+    public function testExtractSubItem()
+    {
         $this->assertEqual(
-            array('Apple', 'Orange', 'Banana', 'Strawberry', 'Lemon'), Set::extract($data, '/item/name')
+            array('Apple', 'Orange', 'Banana', 'Strawberry', 'Lemon'), Set::extract($this->dataArray, '/item/name')
         );
     }
 
