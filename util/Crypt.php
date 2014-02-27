@@ -111,7 +111,7 @@ class Crypt
             $data = base64_decode($data);
         }
 
-        list($vector, $size) = self::vector(array('data' => $data) + $options);
+        list($vector, $size) = self::vector(compact('data') + $options);
         $decrypted = openssl_decrypt(substr($data, $size), $options['ssl.method'], $password, $options['ssl.options'], $vector);
 
         if (strpos($decrypted, 'serialized.') === 0) {
