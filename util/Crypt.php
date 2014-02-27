@@ -57,11 +57,11 @@ class Crypt
      */
     protected static function vector(array $options = array())
     {
-        if (!$options['iv.size']) {
-            $size = mcrypt_get_iv_size($options['iv.chiper'], $options['iv.mode']);
-        }
-        if (!$options['iv.vector']) {
-            $vector = $options['data'] ? substr($options['data'], 0, $size) : mcrypt_create_iv($size, $options['iv.source']);
+        $size = $options['iv.size'] ? : mcrypt_get_iv_size($options['iv.chiper'], $options['iv.mode']);
+        if (!$options['iv.vector'] && $options['data']) {
+            $vector = substr($options['data'], 0, $size);
+        } else {
+            $vector = $options['iv.vector'] ? : mcrypt_create_iv($size, $options['iv.source']);
         }
 
         return $options['data'] ? array($vector, $size) : array($vector);
