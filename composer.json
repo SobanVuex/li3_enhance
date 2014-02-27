@@ -17,5 +17,8 @@
     },
     "require-dev": {
         "unionofrad/lithium": "dev-master"
+    },
+    "suggest": {
+        "unionofrad/lithium": "Lithium is required for this plugin."
     }
 }
