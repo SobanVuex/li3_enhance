@@ -23,6 +23,47 @@ class CryptTest extends \lithium\test\Unit
         $this->password = 'ps010ITXWGRfA';
     }
 
+    public function testCryptableBoolean()
+    {
+        $this->assertTrue(Crypt::cryptable(true));
+        $this->assertTrue(Crypt::cryptable(false));
+    }
+
+    public function testCryptableNumeric()
+    {
+        $this->assertTrue(Crypt::cryptable(123));
+        $this->assertTrue(Crypt::cryptable(123.4));
+    }
+
+    public function testCryptableString()
+    {
+        $this->assertTrue(Crypt::cryptable('abc'));
+    }
+
+    public function testCryptableArray()
+    {
+        $this->assertTrue(Crypt::cryptable(array(1, 2, 3)));
+        $this->assertTrue(Crypt::cryptable(array()));
+    }
+
+    public function testCryptableObject()
+    {
+        $this->assertTrue(Crypt::cryptable(new \stdClass()));
+    }
+
+    public function testNotCryptableResource()
+    {
+        $handle = fopen(__FILE__, 'r');
+        $this->assertFalse(Crypt::cryptable($handle));
+    }
+
+    public function testNotCryptableUnknown()
+    {
+        $handle = fopen(__FILE__, 'r');
+        fclose($handle);
+        $this->assertFalse(Crypt::cryptable($handle));
+    }
+
     public function testEncryptBoolean()
     {
         $this->assertNotEmpty(Crypt::encrypt(true, $this->password));
@@ -53,8 +94,17 @@ class CryptTest extends \lithium\test\Unit
 
     public function testEncryptResource()
     {
+        $handle = fopen(__FILE__, 'r');
         $this->expectException('Type `resource` can not be encrypted.');
-        Crypt::encrypt(fopen(__FILE__, 'r'), $this->password);
+        Crypt::encrypt($handle, $this->password);
+    }
+
+    public function testEncryptUnknown()
+    {
+        $handle = fopen(__FILE__, 'r');
+        fclose($handle);
+        $this->expectException('Type `unknown type` can not be encrypted.');
+        Crypt::encrypt($handle, $this->password);
     }
 
     public function testDecryptBoolean()
