@@ -20,7 +20,7 @@ class CryptTest extends \lithium\test\Unit
 
     public function setUp()
     {
-        $this->password = 'ps010ITXWGRfA';
+        $this->password = uniqid();
     }
 
     public function testCryptableBoolean()
