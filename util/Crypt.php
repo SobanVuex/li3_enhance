@@ -83,7 +83,7 @@ class Crypt
     /**
      * Securely encrypt the message
      *
-     * @param  mixed  $data     Message. All non numeric/non string data will be serialized
+     * @param  mixed  $data     Message
      * @param  string $password Password
      * @param  array  $options  [optional] Options
      * @return string
@@ -109,7 +109,7 @@ class Crypt
     /**
      * Decrypt the securely encrypted message
      *
-     * @param  mixed   $data     Encrypted message.
+     * @param  mixed   $data     Encrypted message
      * @param  string  $password Password
      * @param  array   $options  [optional] Options
      * @return mixed
