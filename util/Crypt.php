@@ -85,8 +85,7 @@ class Crypt
      *
      * @param  mixed  $data     Message. All non numeric/non string data will be serialized
      * @param  string $password Password
-     * @param  string $method   [optional] Cipher
-     * @param  array  $vector   [optional] Initialization Vector. Must contain both `size` and `iv` keys
+     * @param  array  $options  [optional] Options
      * @return string
      * @throws \InvalidArgumentException
      */
