@@ -95,7 +95,7 @@ class Crypt
         $options += self::$_defaults;
 
         if (!self::cryptable($data)) {
-            throw new \InvalidArgumentException("Type `" . gettype($data) . "` can not be encrypted.");
+            throw new \InvalidArgumentException('Variable type `' . gettype($data) . '` can not be encrypted.');
         }
         if ($options['serialize']) {
             $data = 'serialized.' . serialize($data);

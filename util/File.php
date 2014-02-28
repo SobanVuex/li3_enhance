@@ -19,13 +19,12 @@ class File
     /**
      * @var integer
      */
-    const SUM_SHA1 = 1;
+    const SUM_SHA1 = 'sha1';
 
     /**
      * @var integer
      */
-    const SUM_MD5 = 2;
-
+    const SUM_MD5 = 'md5';
 
     /**
      * Check if a `$path` has one or more properties
@@ -79,8 +78,7 @@ class File
         } elseif ($method === self::SUM_MD5) {
             return md5_file($file, $raw);
         } else {
-            $message = 'The `method` argument does not reference a correct hasing algorithm.';
-            throw new \UnexpectedValueException($message);
+            throw new \UnexpectedValueException('Method `' . $method . '` is not a hash algorithm');
         }
     }
 

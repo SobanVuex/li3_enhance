@@ -95,7 +95,7 @@ class CryptTest extends \lithium\test\Unit
     public function testEncryptResource()
     {
         $handle = fopen(__FILE__, 'r');
-        $this->expectException('Type `resource` can not be encrypted.');
+        $this->expectException('Variable type `resource` can not be encrypted.');
         Crypt::encrypt($handle, $this->password);
     }
 
@@ -103,7 +103,7 @@ class CryptTest extends \lithium\test\Unit
     {
         $handle = fopen(__FILE__, 'r');
         fclose($handle);
-        $this->expectException('Type `unknown type` can not be encrypted.');
+        $this->expectException('Variable type `unknown type` can not be encrypted.');
         Crypt::encrypt($handle, $this->password);
     }
 
@@ -120,7 +120,7 @@ class CryptTest extends \lithium\test\Unit
     {
         $encrypted = Crypt::encrypt(123, $this->password);
         $this->assertIdentical(123, Crypt::decrypt($encrypted, $this->password));
-//
+
         $encrypted = Crypt::encrypt(123.4, $this->password);
         $this->assertIdentical(123.4, Crypt::decrypt($encrypted, $this->password));
     }
