@@ -50,13 +50,15 @@ class Crypt
     );
 
     /**
-     * Manage the initialization vector
+     * Create or extract the initialization vector
      *
      * @param  array $options
      * @return array
      */
     protected static function vector(array $options = array())
     {
+        $options += self::$_defaults;
+
         $size = $options['iv.size'] ? : mcrypt_get_iv_size($options['iv.chiper'], $options['iv.mode']);
         if (!$options['iv.vector'] && $options['data']) {
             $vector = substr($options['data'], 0, $size);
@@ -65,6 +67,17 @@ class Crypt
         }
 
         return $options['data'] ? array($vector, $size) : array($vector);
+    }
+
+    /**
+     * Check if the variable can be encrypted
+     *
+     * @param  mixed   $var
+     * @return boolean
+     */
+    public static function cryptable($var)
+    {
+        return in_array(gettype($var), self::$_cryptable);
     }
 
     /**
@@ -80,10 +93,9 @@ class Crypt
     public static function encrypt($data, $password, array $options = array())
     {
         $options += self::$_defaults;
-        $type = gettype($data);
 
-        if (!in_array($type, self::$_cryptable)) {
-            throw new \InvalidArgumentException("Type `{$type}` can not be encrypted.");
+        if (!self::cryptable($data)) {
+            throw new \InvalidArgumentException("Type `" . gettype($data) . "` can not be encrypted.");
         }
         if ($options['serialize']) {
             $data = 'serialized.' . serialize($data);
